@@ -34,6 +34,8 @@ const Register: NextPage = () => {
   const [password, setPassword] = useState<string[]>(null);
 
   const handleSubmit = (e: React.SyntheticEvent) => {
+    e.preventDefault();
+
     fetch("/api/register", {
       method: "PST",
       headers: { "Content-Type": "application/json" },
@@ -42,7 +44,7 @@ const Register: NextPage = () => {
       .then((response) => response.json())
       .then((data) => {
         saveUserToken(data.token);
-        router.push("#dashboard");
+        router.push("/dashboard");
       });
   };
 
@@ -63,8 +65,7 @@ const Register: NextPage = () => {
             </Link>
           </p>
         </div>
-        <form onSubmit={{ handleSubmit(); }} className="mt-8 space-y-6">
-          <Message text={"something went wrong..."} />
+        <form onSubmit={handleSubmit} className="mt-8 space-y-6">
           <div className="rounded-md shadow-sm -space-y-px">
             <div>
               <label htmlFor="email-address" className="sr-only">
@@ -74,7 +75,7 @@ const Register: NextPage = () => {
                 id="email-address"
                 onChange={(event) => setName(event.target.value)}
                 name="name"
-                type="email"
+                type="text"
                 className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                 placeholder="Namee"
               />
@@ -99,8 +100,7 @@ const Register: NextPage = () => {
                 id="password"
                 onChange={(event) => setName(event.target.value)}
                 name="password"
-                disabled
-                type="text"
+                type="password"
                 className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                 placeholder="Password"
               />
@@ -109,8 +109,7 @@ const Register: NextPage = () => {
 
           <div>
             <button
-              type="button"
-              disabled
+              type="submit"
               className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
             >
               Create acount
