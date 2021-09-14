@@ -28,10 +28,10 @@ const Message = ({
 
 const Register: NextPage = () => {
   const router = useRouter();
- 
+
   const [name, setName] = useState<string>("");
-  const [email, setEmail] = useState<boolean>("");
-  const [password, setPassword] = useState<string[]>(null);
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
 
   const handleSubmit = (e: React.SyntheticEvent) => {
     e.preventDefault();
