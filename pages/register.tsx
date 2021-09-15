@@ -32,19 +32,33 @@ const Register: NextPage = () => {
   const [name, setName] = useState<string>("");
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
+  const [repeatpassword, setRepeatPassword] = useState<string>("");
 
   const handleSubmit = (e: React.SyntheticEvent) => {
     e.preventDefault();
-
+    
+    if (password != repeatpassword){
+      document.getElementById("error-msg")?.removeAttribute("hidden");
+      return ;
+    }
     fetch("/api/register", {
-      method: "PST",
+      method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ name: "", email, password }),
+      body: JSON.stringify({ name, email:'', password }),
     })
       .then((response) => response.json())
       .then((data) => {
-        saveUserToken(data.token);
-        router.push("/dashboard");
+        if ('error' in data){
+          console.error({'Error': data["error"]});
+          document.getElementById("error-msg")?.removeAttribute("hidden");
+        } else {
+          document.getElementById("error-msg")?.setAttribute("hidden", "");
+          saveUserToken(data.token);
+          router.push("/dashboard");
+        }
+      })
+      .catch((error) => {
+        console.error({'Error': error});
       });
   };
 
@@ -66,13 +80,16 @@ const Register: NextPage = () => {
           </p>
         </div>
         <form onSubmit={handleSubmit} className="mt-8 space-y-6">
+          <div id="error-msg" className="error-msg" hidden>
+            <Message text={"something went wrong..."} />
+          </div>
           <div className="rounded-md shadow-sm -space-y-px">
             <div>
-              <label htmlFor="email-address" className="sr-only">
+              <label htmlFor="name" className="sr-only">
                 Name
               </label>
               <input
-                id="email-address"
+                id="name"
                 onChange={(event) => setName(event.target.value)}
                 name="name"
                 type="text"
@@ -86,8 +103,9 @@ const Register: NextPage = () => {
               </label>
               <input
                 id="email-address"
-                name="name"
-                type="text"
+                onChange={(event) => setEmail(event.target.value)}
+                name="email"
+                type="email"
                 className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                 placeholder="Email address"
               />
@@ -98,11 +116,24 @@ const Register: NextPage = () => {
               </label>
               <input
                 id="password"
-                onChange={(event) => setName(event.target.value)}
+                onChange={(event) => setPassword(event.target.value)}
                 name="password"
                 type="password"
                 className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                 placeholder="Password"
+              />
+            </div>
+            <div>
+              <label htmlFor="repeatpassword" className="sr-only">
+                Password
+              </label>
+              <input
+                id="repeatpassword"
+                onChange={(event) => setRepeatPassword(event.target.value)}
+                name="repeatpassword"
+                type="text"
+                className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                placeholder="Re-enter Password"
               />
             </div>
           </div>
