@@ -3,6 +3,8 @@ import { useState } from "react";
 import { useRouter } from "next/router";
 import classNames from "classnames";
 import { saveUserToken } from "../lib/store";
+import Link from "next/link";
+
 
 
 const Message = ({
@@ -72,7 +74,15 @@ const Login: NextPage = () => {
             Login
           </h2>
         </div>
-        
+        <p className="mt-2 text-center text-sm text-gray-600 broken-redirect-link">
+            or{" "}
+            
+            <Link href={"/login"}>
+              <a className="font-medium text-indigo-600 hover:text-indigo-500">
+                Register a new account.
+              </a>
+            </Link>
+          </p>
         <div className="text-center">
         <form onSubmit={handleSubmit} className="mt-8 space-y-6">
           <div id="error-msg" className="error-msg" hidden>
