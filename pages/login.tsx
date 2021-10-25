@@ -21,3 +21,11 @@ const Login: NextPage = () => {
 };
 
 export default Login;
+
+// Problem #1: Create a working Login Form
+// - create a form that accepts an email and password from the user
+// - upon submitting the form, it should make a POST request to /api/login
+//   with a post body of "email" & "password" set to the form's values
+// - if successful, a "token" property will be returned - save it
+//   using the function on line 5
+// - after saving the token, redirect the user to the /dashboard page
