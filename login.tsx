@@ -14,12 +14,12 @@ const Login = () => {
       style={tw`flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8`}
     >
       <View
-        style={tw`max-w-md w-full space-y-8`}
+        style={tw`max-w-md w-full`}
       >
         <View>
           <Image source={staticImage} style={tw`mx-auto h-36 w-auto`}/>
           <Text
-            style={tw`mt-6 text-center text-3xl font-extrabold text-gray-900`}
+            style={tw`mt-6 text-center text-3xl font-extrabold text-purple-500`}
           >
             Login
           </Text>

@@ -3,7 +3,7 @@ import { StyleSheet, Text, View, ScrollView } from 'react-native';
 
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import Login from './login'
+import Login from './Login'
 import tw from 'twrnc';
 
 const Stack = createNativeStackNavigator();
